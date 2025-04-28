@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indik</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" />
+    <style>
+        *:focus {
+            outline: 2px solid #f82;
+        }
+        
+        input[list]::-webkit-calendar-picker-indicator {
+            display: none; 
+        }
+
+       
+        input[list] {
+            max-height: 5rem;
+        }
+        .areaCentro{
+            width: 20rem;
+            height: 26.2rem;
+            background-color: #eeee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 2px 4px 6px #f82;
+            border:1px solid #f82;
+        }
+        .formulario{
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+        .awesomplete{
+            width: 96%;
+            height: 1.3rem;
+            margin-bottom: 1rem;
+        }          
+        input{
+            width: 90%;
+            height: 2rem;
+            padding: .4rem;
+            text-align: center;
+            
+            border:1px solid #f82;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="areaCentro">
+        <form class="formulario" action="" method="post">
+            <label for="condominio">Condominio</label>
+            <input class="awesomplete" list="condominios" id="condominio" name="condominio">
+
+           <datalist id="condominios"> 
+            <option value="AIUKA">
+            <option value="ALAGOINHAS">
+            <option value="ΑΝΑ BASTOS">
+            <option value="ARAÇATUBA">
+            <option value="ARUANA">
+            <option value="AYRES SALDANHA">
+            <option value="BARBACENA">
+            <option value="BOLIVAR">
+            <option value="BRIGITE">
+            <option value="CAMARGO">
+            <option value="CEREJEIRA">
+            <option value="CIPALOS">
+            <option value="CONDADO LUZERNE">
+            <option value="CORAMAR">
+            <option value="DOIS DE AGOSTO">
+            <option value="DOM PEDRO II">
+            <option value="ESTER LANDES">
+            <option value="FRANCO">
+            <option value="HAYA">
+            <option value="ΙΒΙΑΡΑΒΑ">
+            <option value="ITAOBI">
+            <option value="ITAOCA">
+            <option value="JOAQUIM F. BRAGA">
+            <option value="JUPIA">
+            <option value="LELLIS">
+            <option value="LOGAN">
+            <option value="LYGIA">
+            <option value="MACAUBAS">
+            <option value="MIRANTE">
+            <option value="NICÁCIO">
+            <option value="OURO NEGRO AA">
+            <option value="PARAGON">
+            <option value="PORTO BELLO">
+            <option value="RESIDENCIAL ASSUNÇÃO">
+            <option value="RESID. MARIA ANGÉLICA">
+            <option value="RIO ALTO">
+            <option value="ROMULO (2287-9387)">
+            <option value="RONY">
+            <option value="ROYAL STAR">
+            <option value="SALVATERRA">
+            <option value="SANDRA">
+            <option value="SANTA BARBARA">
+            <option value="SISALTLANTICO">
+            <option value="SOL DA LAGOA">
+            <option value="SOLAR 435 (3574-8133)">
+            <option value="S. B. MINAS GERAIS">
+            <option value="S. PRINC. PATRICIA">
+            <option value="THEMIS">
+            <option value="TOULON (2249-7442)">
+            <option value="URARY">
+            <option value="VESTA">
+            <option value="VIVENDAS DA PRAÇA">
+            <option value="WATKINS">
+            <option value="W. P. ALMEIDA">
+            </datalist>
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name">
+            <label for="whatsapp">Whatsapp</label>
+            <input type="text" name="whatsapp" id="whatsapp" maxlength="16" placeholder="(00) 9 0000-0000">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email">
+            <label for="residencia">Resindência</label>
+            <input type="text" name="residencia" id="residencia" placeholder="Exemplo:Apart. 301, bloco 2">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+    <script>
+        document.getElementById('whatsapp').addEventListener('input', function (e) {
+            let value = e.target.value;
+            
+            // Remove tudo que não for número
+            value = value.replace(/\D/g, '');
+            
+            // Aplica a formatação (00) 9 0000-0000
+            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+            value = value.replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3');
+            
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
