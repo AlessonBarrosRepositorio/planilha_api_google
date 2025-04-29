@@ -20,7 +20,7 @@
         }
         .areaCentro{
             width: 20rem;
-            height: 26.2rem;
+            height: 29rem;
             background-color: #eeee;
             display: flex;
             align-items: center;
@@ -40,7 +40,7 @@
         }
         .awesomplete{
             width: 96%;
-            height: 1.3rem;
+            height: 1.1rem;
             margin-bottom: 1rem;
         }          
         input{
@@ -57,9 +57,9 @@
 </head>
 <body>
     <div class="areaCentro">
-        <form class="formulario" action="" method="post">
+        <form class="formulario" action="" method="post" name="formulario">
             <label for="condominio">Condominio</label>
-            <input class="awesomplete" list="condominios" id="condominio" name="condominio">
+            <input class="awesomplete" list="condominios" id="condominio" name="Clondominio">
 
            <datalist id="condominios"> 
             <option value="AIUKA">
@@ -117,19 +117,65 @@
             <option value="WATKINS">
             <option value="W. P. ALMEIDA">
             </datalist>
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name">
-            <label for="whatsapp">Whatsapp</label>
-            <input type="text" name="whatsapp" id="whatsapp" maxlength="16" placeholder="(00) 9 0000-0000">
-            <label for="email">E-mail</label>
-            <input type="email" name="email" id="email">
             <label for="residencia">Resindência</label>
-            <input type="text" name="residencia" id="residencia" placeholder="Exemplo:Apart. 301, bloco 2">
-            <button type="submit">Enviar</button>
+            <input type="text" name="Residencia" id="residencia" placeholder="Exemplo:Apart. 301, bloco 2">
+            <label for="name">Nome</label>
+            <input type="text" name="Nome" id="name">
+            <label for="cpf">CPF</label>
+            <input type="text" name="CPF" id="cpf" maxlength="14" placeholder="000.000.000-00">
+            <small id="cpf-erro" style="color: red; display: none;">CPF inválido</small>
+            <label for="whatsapp">Whatsapp</label>
+            <input type="text" name="Whatsapp" id="whatsapp" maxlength="16" placeholder="(00) 9 0000-0000">
+            <label for="email">E-mail</label>
+            <input type="email" name="E-mail" id="email">
+            <small id="email-erro" style="color: red; display: none;">E-mail inválido</small>
+            <button type="submit" id="enviar" disabled>Enviar</button>
         </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
     <script>
+
+        function verificarCampos() {
+                const condominio = document.getElementById('condominio').value.trim();
+                const nome = document.getElementById('name').value.trim();
+                const cpf = document.getElementById('cpf').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const residencia = document.getElementById('residencia').value.trim();
+
+                const cpfValido = validarCPF(cpf.replace(/\D/g, ''));
+                const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+                const botao = document.getElementById('enviar');
+
+                const todosPreenchidos = condominio && nome && cpf && whatsapp && email && residencia;
+                const semErrosVisiveis = document.getElementById('cpf-erro').style.display === 'none' &&
+                                        document.getElementById('email-erro').style.display === 'none';
+
+                if (todosPreenchidos && cpfValido && emailValido && semErrosVisiveis) {
+                    botao.disabled = false;
+                } else {
+                    botao.disabled = true;
+                }
+            }
+                ['condominio', 'name', 'cpf', 'whatsapp', 'email', 'residencia'].forEach(id => {
+            document.getElementById(id).addEventListener('input', verificarCampos);
+        });
+
+        document.getElementById('email').addEventListener('input', function(e) {
+            const email = e.target.value;
+            const erro = document.getElementById('email-erro');
+
+            
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            if (email.length > 0 && !regex.test(email)) {
+                erro.style.display = 'inline';
+            } else {
+                erro.style.display = 'none';
+            }
+            verificarCampos();
+        });
         document.getElementById('whatsapp').addEventListener('input', function (e) {
             let value = e.target.value;
             
@@ -142,6 +188,83 @@
             
             e.target.value = value;
         });
+
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+
+            let resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
+
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+
+            return resto === parseInt(cpf.charAt(10));
+        }
+
+        document.getElementById('cpf').addEventListener('input', function(c){
+            let value2 = c.target.value;
+
+            value2 = value2.replace(/\D/g,'');
+
+            value2 = value2.replace(/(\d{3})(\d)/, '$1.$2');
+            value2 = value2.replace(/(\d{3})(\d)/, '$1.$2');
+            value2 = value2.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            c.target.value = value2;
+
+            const cpfNumeros = value2.replace(/\D/g, '');
+            const erro = document.getElementById('cpf-erro');
+
+            if (cpfNumeros.length === 11) {
+                if (!validarCPF(cpfNumeros)) {
+                    erro.style.display = 'inline';
+                } else {
+                    erro.style.display = 'none';
+                }
+            } else {
+                erro.style.display = 'none';
+            }
+            verificarCampos();
+        });
+    </script>
+    <script>
+        const scriptGoogle = "https://script.google.com/macros/s/AKfycbya_1GXPf4IFgVh8wqEtLFWhzB4Zg_BFtuYO_0e_-6XJBNwL-Uk13nTkIY5e3t3AAjv/exec";
+        const dadosFormulario = document.forms['formulario'];
+
+        dadosFormulario.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            fetch(scriptGoogle, {
+                method: 'POST',
+                body: new FormData(dadosFormulario)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Dados enviados com sucesso!');
+                    dadosFormulario.reset();
+                } else {
+                    alert('Erro ao enviar os dados: ' + response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar', error);
+                alert('Erro ao conectar com o servidor.');
+            });
+        });
+
     </script>
 </body>
 </html>
