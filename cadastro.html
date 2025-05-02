@@ -245,26 +245,55 @@
         const dadosFormulario = document.forms['formulario'];
 
         dadosFormulario.addEventListener('submit', function(e) {
-           e.preventDefault();
+            e.preventDefault();
             
+            // Captura e converte todos os valores para string
+            const condominio = String(document.getElementById('condominio').value);
+            const residencia = String(document.getElementById('residencia').value);
+            const nome = String(document.getElementById('nome').value);
+            const cpf = String(document.getElementById('cpf').value);
+            const whatsapp = String(document.getElementById('whatsapp').value);
+            const email = String(document.getElementById('email').value);
+
+            // Cria objeto com os valores convertidos
+            const dadosConvertidos = {
+                condominio: condominio,
+                residencia: residencia,
+                nome: nome,
+                cpf: cpf,
+                whatsapp: whatsapp,
+                email: email
+            };
+
+            // Exibe no console para verificação
+            console.log('Dados convertidos para envio:', dadosConvertidos);
+
             fetch(scriptGoogle, {
                 method: 'POST',
-                body: new FormData(dadosFormulario)
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(dadosConvertidos)
             })
             .then(response => {
                 if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro na resposta do servidor');
+            })
+            .then(data => {
+                if(data.status === 'sucesso') {
                     alert('Dados enviados com sucesso!');
                     dadosFormulario.reset();
                 } else {
-                    alert('Erro ao enviar os dados: ' + response.status);
+                    alert('Erro: ' + (data.mensagem || 'Erro desconhecido'));
                 }
             })
             .catch(error => {
-                console.error('Erro ao enviar', error);
-                alert('Erro ao conectar com o servidor.');
+                console.error('Erro ao enviar:', error);
+                alert('Erro ao conectar com o servidor: ' + error.message);
             });
         });
-
     </script>
 </body>
 </html>
