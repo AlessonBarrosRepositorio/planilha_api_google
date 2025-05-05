@@ -120,10 +120,10 @@
             </input>
 
             <label for="residencia">Resindência</label>
-            <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo:Apart. 301, bloco 2">
+            <input type="text" name="data[residencia]" id="residencia" maxlength="60" placeholder="Exemplo:Apart. 301, bloco 2">
 
             <label for="nome">Nome</label>
-            <input type="text" name="data[nome]" id="nome">
+            <input type="text" name="nome" id="nome" placeholder="Exemplo: leo da silva" maxlength="125">
 
             <label for="cpf">CPF</label>
             <input type="text" name="data[cpf]" id="cpf" maxlength="14" placeholder="000.000.000-00">
@@ -248,7 +248,7 @@
         });
     </script>
     <script>
-        const scriptGoogle = "https://script.google.com/macros/s/AKfycbya_1GXPf4IFgVh8wqEtLFWhzB4Zg_BFtuYO_0e_-6XJBNwL-Uk13nTkIY5e3t3AAjv/exec";
+        const scriptGoogle = "https://sheetdb.io/api/v1/yyx16sbmdsyzi";
         const dadosFormulario = document.forms['formulario'];
 
         dadosFormulario.addEventListener('submit', function(e) {
