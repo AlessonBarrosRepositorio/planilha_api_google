@@ -6,6 +6,20 @@
     <title>Indik</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" />
     <style>
+        *{
+            margin:0;
+            border:0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         *:focus {
             outline: 2px solid #f82;
         }
@@ -40,8 +54,8 @@
         }
         .awesomplete{
             width: 96%;
-            height: 1.1rem;
-            margin-bottom: 1rem;
+            height: 2rem;
+            margin-bottom: 0.5rem;
         }          
         input{
             width: 90%;
@@ -52,10 +66,24 @@
             border:1px solid #f82;
             
         }
+        .corF{
+            width: 100%;
+            height: 2rem;
+            background-color: #f82;
+            position: absolute;
+        }
+        .faixaS{
+            top: 2.2rem;
+        }
+        .faixaI{
+            bottom: 0;
+            height: 3.4rem;
+        }
 
     </style>
 </head>
 <body>
+    <div class="faixaS corF"></div>
     <div class="areaCentro">
         <form class="formulario" action="" method="post" name="formulario">
             <label for="condominio">Condominio</label>
@@ -139,6 +167,7 @@
             <button type="submit" id="enviar" disabled>Enviar</button>
         </form>
     </div>
+    <div class="faixaI corF"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
     <script>
 
@@ -273,36 +302,45 @@
             };
 
             // Exibe no console para verificação
-            console.log('Dados convertidos para envio:', dadosConvertidos);
+            //console.log('Dados convertidos para envio:', dadosConvertidos);
 
                     // ALERTA ADICIONADO AQUI (única modificação)
-            alert(`Dados que serão enviados:\n\nCondomínio: ${condominio}\nResidência: ${residencia}\nNome: ${nome}\nCPF: ${cpf}\nWhatsApp: ${whatsapp}\nEmail: ${email}`);
+            //alert(`Dados que serão enviados:\n\nCondomínio: ${condominio}\nResidência: ${residencia}\nNome: ${nome}\nCPF: ${cpf}\nWhatsApp: ${whatsapp}\nEmail: ${email}`);
 
 
             fetch(scriptGoogle, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    //'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams(dadosConvertidos)
+                body: JSON.stringify({ data: [dadosConvertidos] })//new URLSearchParams(dadosConvertidos)
             })
             .then(response => {
-                if (response.ok) {
-                    return response.json();
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);//return response.json();
                 }
-                throw new Error('Erro na resposta do servidor');
+                return response.json()//throw new Error('Erro na resposta do servidor');
             })
             .then(data => {
+                /*
                 if(data.status === 'sucesso') {
-                    alert('Dados enviados com sucesso!');
+                    //alert('Dados enviados com sucesso!');
                     dadosFormulario.reset();
                 } else {
-                    alert('Erro: ' + (data.mensagem || 'Erro desconhecido'));
+                    //alert('Erro: ' + (data.mensagem || 'Erro desconhecido'));
+                }*/
+                if (data.created === 1) {
+                alert('✅ Dados enviados com sucesso!');
+                document.forms['formulario'].reset();
+                } else {
+                throw new Error('Falha ao criar registro na planilha');
                 }
             })
             .catch(error => {
                 console.error('Erro ao enviar:', error);
-                alert('Erro ao conectar com o servidor: ' + error.message);
+                alert(`❌ Erro ao enviar dados: ${error.message}`);
+                //alert('Erro ao conectar com o servidor: ' + error.message);
             });
         });
     </script>
