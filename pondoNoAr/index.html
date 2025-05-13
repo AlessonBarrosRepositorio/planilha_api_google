@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        *{
+            margin: 0;
+            border: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        *:focus {
+            outline: 2px solid #f82;
+        }
+        h1{
+            color: #f93;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            width: 90%;
+            height: 5%;
+            border:1px solid  #f82;
+            border-radius: 5px;
+            box-shadow: 1px 2px 4px #d60;
+            background-color: #fa24;
+            padding: 2%;
+        }
+        button{
+            width: 90%;
+            height: 7%;
+            background-color: #fa2;
+            border-radius: 10px;
+            box-shadow: 1px 2px 4px #d60;
+        }
+        .top,.midle,.bottom{
+            position: relative;
+            width: 100%;
+        }
+        .top{
+            position: absolute;
+            top: 0;
+            height: 10%;
+            background-color: #f82;
+        }
+        .midle{
+            position: absolute;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .formulario{
+            width: 22rem;
+            height: 30rem;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            border: 0.8rem #f82 solid;
+            box-shadow: 3px 4px 6px #d60;
+            border-radius: 10px;
+            gap: 2.2%;
+            background-color: #fff;
+            overflow-y: auto;
+            scrollbar-width: none;
+            position: relative;
+            padding: 0.3rem;
+        }
+
+        .formulario::-webkit-scrollbar {
+            display: none;
+        }
+        .bottom{
+            position: absolute;
+            bottom: 0;
+            height: 10%;
+            background-color: #f82;
+        }
+        @media (min-width: 3840px){
+            .formulario{
+                width: 20%;
+                height: 80%;
+                font-size: 200%;
+                gap: 2.5%;
+            }
+        }
+        @media (max-width: 3840px){
+            .formulario{
+                width: 20%;
+                height: 80%;
+                font-size: 200%;
+                gap: 2.5%;
+            }
+        }
+        @media (min-width: 2560px){
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 110%;
+                gap: 3%;
+            }
+        }
+        @media (max-width: 2560px){
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 110%;
+                gap: 3%;
+            }
+        }
+        @media (min-width: 1920px){
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 100%;
+                gap: 2.8%;
+            }
+        }
+        @media (max-width: 1920px){
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 100%;
+                gap: 2.8%;
+            }
+        }
+        @media (min-width: 1366px) {
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 72%;
+                gap: 2.6%;
+            }
+        }
+        
+        @media (max-width: 1366px) {
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 72%;
+                gap: 2.6%;
+            }
+        }
+        @media (max-width: 1215px) {
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 60%;
+                gap: 2.6%;
+            }
+        }
+        @media (max-width: 1038px) {
+            .formulario{
+                width: 20%;
+                height: 90%;
+                font-size: 55%;
+                gap: 2.8%;
+            }
+        }
+        @media (max-width: 978px) {
+            .formulario{
+                width: 40%;
+                height: 94%;
+                font-size: 55%;
+                gap: 2.8%;
+            }
+        }
+
+        @media (max-width: 720px) {
+                    .formulario{
+                            width: 90%;
+                            height: 96%;
+                            gap: 1.8%;
+                        }
+        }
+
+        @media (max-width: 480px) {
+                    .formulario{
+                            width: 90%;
+                            height: 96%;
+                            gap: 3%;
+                        }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top">
+        <div class="logo"></div>
+    </div>
+    <div class="midle">
+        <form class="formulario" action="" method="post" name="formulario">
+            <h1>Atualização Cadastral</h1>
+
+            <label for="nome">Nome Completo</label>
+            <input type="text" name="data[nome]" id="nome" placeholder="Exemplo: leo da silva" maxlength="125">
+
+            <label for="cpf">CPF</label>
+            <input type="text" name="data[cpf]" id="cpf" maxlength="14" placeholder="000.000.000-00">
+            <small id="cpf-erro" style="color: red; display: none;">CPF invalido</small>
+
+            <label for="whatsapp">Whatsapp</label>
+            <input type="text" name="data[whatsapp]" id="whatsapp" maxlength="16" placeholder="(00) 9 0000-0000">
+
+            <label for="email">E-mail</label>
+            <input type="email" name="data[email]" id="email" maxlength="120" placeholder="Exemplo: leo@email.com">
+            <small id="email-erro" style="color: red; display: none;">E-mail invalido</small>
+
+            <label for="endereco">Endereço</label>
+            <input type="text" name="data[endereco]" id="endereco" placeholder="Exemplo: rua, n° 02">
+
+            <label for="residencia">Apartamento</label>
+            <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo: leo da silva" maxlength="125">
+
+            <button type="submit" id="enviar" disabled>Enviar</button>
+        </form>
+    </div>
+    <div class="bottom">
+        <div class="footer"></div>
+    </div>
+    <script>
+        function verificarCampos() {
+                const endereco = document.getElementById('endereco').value.trim();
+                const nome = document.getElementById('nome').value.trim();
+                const cpf = document.getElementById('cpf').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const residencia = document.getElementById('residencia').value.trim();
+
+                const cpfValido = validarCPF(cpf.replace(/\D/g, ''));
+                const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+                const botao = document.getElementById('enviar');
+
+                const todosPreenchidos = endereco && nome && cpf && whatsapp && email && residencia;
+                const semErrosVisiveis = document.getElementById('cpf-erro').style.display === 'none' &&
+                                        document.getElementById('email-erro').style.display === 'none';
+
+                if (todosPreenchidos && cpfValido && emailValido && semErrosVisiveis) {
+                    botao.disabled = false;
+                } else {
+                    botao.disabled = true;
+                }
+            }
+                ['endereco', 'nome', 'cpf', 'whatsapp', 'email', 'residencia'].forEach(id => {
+            document.getElementById(id).addEventListener('input', verificarCampos);
+        });
+
+        document.getElementById('email').addEventListener('input', function(e) {
+            const email = e.target.value;
+            const erro = document.getElementById('email-erro');
+
+            
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            if (email.length > 0 && !regex.test(email)) {
+                erro.style.display = 'inline';
+            } else {
+                erro.style.display = 'none';
+            }
+            verificarCampos();
+        });
+        document.getElementById('whatsapp').addEventListener('input', function (e) {
+            let value = e.target.value;
+            
+            // Remove tudo que não for número
+            value = value.replace(/\D/g, '');
+            
+            // Aplica a formatação (00) 9 0000-0000
+            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+            value = value.replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3');
+            
+            e.target.value = value;
+        });
+
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+
+            let resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
+
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+
+            return resto === parseInt(cpf.charAt(10));
+        }
+
+        document.getElementById('cpf').addEventListener('input', function(c){
+            let value2 = c.target.value;
+
+            value2 = value2.replace(/\D/g,'');
+
+            value2 = value2.replace(/(\d{3})(\d)/, '$1.$2');
+            value2 = value2.replace(/(\d{3})(\d)/, '$1.$2');
+            value2 = value2.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            c.target.value = value2;
+
+            const cpfNumeros = value2.replace(/\D/g, '');
+            const erro = document.getElementById('cpf-erro');
+
+            if (cpfNumeros.length === 11) {
+                if (!validarCPF(cpfNumeros)) {
+                    erro.style.display = 'inline';
+                } else {
+                    erro.style.display = 'none';
+                }
+            } else {
+                erro.style.display = 'none';
+            }
+            verificarCampos();
+        });
+    </script>
+    <script>
+        const scriptGoogle = "https://sheetdb.io/api/v1/yyx16sbmdsyzi";
+        const dadosFormulario = document.forms['formulario'];
+
+        dadosFormulario.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Captura e converte todos os valores para string
+            const endereco = String(document.getElementById('endereco').value);
+            const residencia = String(document.getElementById('residencia').value);
+            const nome = String(document.getElementById('nome').value);
+            const cpf = String(document.getElementById('cpf').value);
+            const whatsapp = String(document.getElementById('whatsapp').value);
+            const email = String(document.getElementById('email').value);
+
+            // Cria objeto com os valores convertidos
+            const dadosConvertidos = {
+                endereco: endereco,
+                residencia: residencia,
+                nome: nome,
+                cpf: cpf,
+                whatsapp: whatsapp,
+                email: email
+            };
+
+            // Exibe no console para verificação
+            //console.log('Dados convertidos para envio:', dadosConvertidos);
+
+                    // ALERTA ADICIONADO AQUI (única modificação)
+            //alert(`Dados que serão enviados:\n\nCondomínio: ${condominio}\nResidência: ${residencia}\nNome: ${nome}\nCPF: ${cpf}\nWhatsApp: ${whatsapp}\nEmail: ${email}`);
+
+
+            fetch(scriptGoogle, {
+                method: 'POST',
+                headers: {
+                    //'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: [dadosConvertidos] })//new URLSearchParams(dadosConvertidos)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);//return response.json();
+                }
+                return response.json()//throw new Error('Erro na resposta do servidor');
+            })
+            .then(data => {
+                /*
+                if(data.status === 'sucesso') {
+                    //alert('Dados enviados com sucesso!');
+                    dadosFormulario.reset();
+                } else {
+                    //alert('Erro: ' + (data.mensagem || 'Erro desconhecido'));
+                }*/
+                if (data.created === 1) {
+                    alert('✅ Dados enviados com sucesso!');
+                    //document.forms['formulario'].reset();
+                    window.location.href = "https://www.indik.com.br/home";
+                } else {
+                throw new Error('Falha ao criar registro na planilha');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar:', error);
+                alert(`❌ Erro ao enviar dados: ${error.message}`);
+                //alert('Erro ao conectar com o servidor: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
