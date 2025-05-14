@@ -23,6 +23,10 @@
             align-items: center;
             justify-content: center;
         }
+        label{
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic; font-weight:bolder;
+        }
         input{
             width: 90%;
             height: 5%;
@@ -38,10 +42,6 @@
             background-color: #fa2;
             border-radius: 10px;
             box-shadow: 1px 2px 4px #d60;
-        }
-        label{
-            font-family: Arial, Helvetica, sans-serif;
-            font-style: italic;
         }
         .top,.midle,.bottom{
             position: relative;
@@ -87,7 +87,7 @@
         .bottom{
             position: absolute;
             bottom: 0;
-            height: 10%;
+            height: 5%;
             background-color: #f82;
         }
         .logo{
@@ -197,43 +197,35 @@
         }
 
         @media (max-width: 480px) {
+                    h1{font-size:300%;}
+                    
                     .formulario{
-                            width: 90%;
-                            height: 96%;
-                            gap: 3%;
+                            width: 92%;
+                            height: 98%;
+                            gap: 1.4%;
+                            padding:0.8rem;
                         }
-                    .logo{
+                       .logo{
                          width: 50%;
                          height: 100%;
                          padding: 0.8rem;
-                    }
-                    label{
-                        font-size: 200%;
-                    }
-
-        }
-                @media (max-width: 423px) {
-                    .formulario{
-                            width: 90%;
-                            height: 96%;
-                            gap: 3%;
                         }
-                    .logo{
-                         width: 50%;
-                         height: 100%;
-                         padding: 0.8rem;
-                    }
                     label{
                         font-size: 200%;
                     }
+                    input{height:8%; }
+                    #enviar{margin-top:5%; height:10%;}
 
         }
+        @media (max-width: 423px) {
+                    h1{font-size:200%;} .formulario{gap:1%; padding:0.4rem;}
+}
         
     </style>
 </head>
 <body>
     <div class="top">
-        <div class="logo"><img src="./logoIndikCadastro.png" alt="Logo Indik"></div>
+        <div class="logo"><img src="../assets/images/logoIndikCadastro.png" alt="Logo Indik"></div>
     </div>
     <div class="midle">
         <form class="formulario" action="" method="post" name="formulario">
@@ -257,7 +249,7 @@
             <input type="text" name="data[endereco]" id="endereco" placeholder="Exemplo: rua, n° 02">
 
             <label for="residencia">Apartamento</label>
-            <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo: leo da silva" maxlength="125">
+            <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo: 1004" maxlength="125">
 
             <button type="submit" id="enviar" disabled>Enviar</button>
         </form>
@@ -285,7 +277,6 @@
 
                 if (todosPreenchidos && cpfValido && emailValido && semErrosVisiveis) {
                     botao.disabled = false;
-
                 } else {
                     botao.disabled = true;
                 }
@@ -293,7 +284,6 @@
                 ['endereco', 'nome', 'cpf', 'whatsapp', 'email', 'residencia'].forEach(id => {
             document.getElementById(id).addEventListener('input', verificarCampos);
         });
-
 
         document.getElementById('email').addEventListener('input', function(e) {
             const email = e.target.value;
@@ -379,7 +369,6 @@
 
         dadosFormulario.addEventListener('submit', function(e) {
             e.preventDefault();
-
             document.getElementById('enviar').addEventListener('click', function() {
                 this.disabled = true;
             }); 
@@ -444,7 +433,6 @@
                 alert(`❌ Erro ao enviar dados: ${error.message}`);
                 //alert('Erro ao conectar com o servidor: ' + error.message);
             });
-
         });
     </script>
 </body>
