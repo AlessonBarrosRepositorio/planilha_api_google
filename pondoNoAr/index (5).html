@@ -54,7 +54,7 @@
         }
         .midle{
             position: absolute;
-            height: 80%;
+            height: 88%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -214,11 +214,18 @@
                         font-size: 200%;
                     }
                     input{height:8%; }
-                    #enviar{margin-top:5%; height:10%;}
+                    #enviar{
+                        margin-top:2%;
+                        height:2rem;
+                    }
 
         }
         @media (max-width: 423px) {
-                    h1{font-size:200%;} .formulario{gap:1%; padding:0.4rem;}
+                    h1{font-size:200%;}
+                    .formulario{
+                        gap:1%;
+                        padding:0.4rem;
+                    }
 }
         
     </style>
@@ -249,6 +256,9 @@
             <input type="text" name="data[endereco]" id="endereco" placeholder="Exemplo: rua, n° 02">
 
             <label for="residencia">Apartamento</label>
+            <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo: 1004" maxlength="125">
+
+            <label for="residencia">Endereço de Cobrança</label>
             <input type="text" name="data[residencia]" id="residencia" placeholder="Exemplo: 1004" maxlength="125">
 
             <button type="submit" id="enviar" disabled>Enviar</button>
